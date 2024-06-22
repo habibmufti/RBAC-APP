@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg: "Position already registered",
         },
+        allowNull: false,
         validate: {
           notEmpty: {
             args: true,
@@ -33,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       description: {
         type: DataTypes.STRING,
+        allowNull: false,
         validate: {
           notEmpty: {
             args: true,

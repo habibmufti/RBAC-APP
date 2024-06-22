@@ -9,13 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      ForgotPassword.hasMany(models.User, { foreignKey: "UserId" });
+      ForgotPassword.belongsTo(models.User, { foreignKey: "UserId" });
     }
   }
   ForgotPassword.init(
     {
       pin: {
         type: DataTypes.STRING,
+        allowNull: false,
         validate: {
           notEmpty: {
             args: true,
