@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Software Engineer",
+    "description": "Responsible for developing and maintaining software applications."
+  },
+  {
+    "id": 2,
+    "name": "Project Manager",
+    "description": "Oversees project planning, scheduling, and execution."
+  },
+  {
+    "id": 3,
+    "name": "HR Manager",
+    "description": "Handles recruitment, training, and employee relations."
+  }
+]

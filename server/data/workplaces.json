@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Head Office",
+    "address": "123 Main St, City, Country"
+  },
+  {
+    "id": 2,
+    "name": "Branch Office",
+    "address": "456 Elm St, City, Country"
+  },
+  {
+    "id": 3,
+    "name": "Remote",
+    "address": "Work from home"
+  }
+]
