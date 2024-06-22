@@ -13,13 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.Role, { foreignKey: "RoleId" });
       User.hasOne(models.Position, { foreignKey: "PositionId" });
       User.hasOne(models.Workplace, { foreignKey: "WorkplaceId" });
-      User.belongsTo(models.ForgotPassword, { foreignKey: "UserId" });
+      User.hasMany(models.ForgotPassword , { foreignKey: "UserId" });
     }
   }
   User.init(
     {
       name: {
         type: DataTypes.STRING,
+        allowNull: false,
         validate: {
           notEmpty: {
             args: true,
@@ -33,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       email: {
         type: DataTypes.STRING,
+        allowNull: false,
         unique: {
           args: true,
           msg: "Email already registered",
@@ -54,31 +56,29 @@ module.exports = (sequelize, DataTypes) => {
       },
       phone: {
         type: DataTypes.STRING,
+        allowNull: false,
         validate: {
           notEmpty: {
             args: true,
-            msg: "Phone cannot be empty",
+            msg: "Phone number cannot be empty",
           },
           notNull: {
             args: true,
-            msg: "Phone cannot be empty",
+            msg: "Phone number cannot be empty",
           },
-          min: {
-            args: 10,
-            msg: "Phone number must be at least 10 characters",
-          },
-          max: {
-            args: 13,
-            msg: "Phone number must be at most 13 characters",
+          len: {
+            args: [10, 13],
+            msg: "Phone number must be between 10 and 13 characters",
           },
         },
         unique: {
           args: true,
-          msg: "Phone already registered",
+          msg: "Phone number already registered",
         },
       },
       password: {
         type: DataTypes.STRING,
+        allowNull: false,
         validate: {
           notEmpty: {
             args: true,
@@ -105,16 +105,17 @@ module.exports = (sequelize, DataTypes) => {
       },
       PositionId: {
         type: DataTypes.INTEGER,
-        validate: {
-          notEmpty: {
-            args: true,
-            msg: "Position cannot be empty",
-          },
-          notNull: {
-            args: true,
-            msg: "Position cannot be empty",
-          },
-        },
+        // allowNull: false,
+        // validate: {
+        //   notEmpty: {
+        //     args: true,
+        //     msg: "Position cannot be empty",
+        //   },
+        //   notNull: {
+        //     args: true,
+        //     msg: "Position cannot be empty",
+        //   },
+        // },
         references: {
           model: "Positions",
           key: "id",
@@ -122,16 +123,17 @@ module.exports = (sequelize, DataTypes) => {
       },
       WorkplaceId: {
         type: DataTypes.INTEGER,
-        validate: {
-          notEmpty: {
-            args: true,
-            msg: "Workplace cannot be empty",
-          },
-          notNull: {
-            args: true,
-            msg: "Workplace cannot be empty",
-          },
-        },
+        // allowNull: false,
+        // validate: {
+        //   notEmpty: {
+        //     args: true,
+        //     msg: "Workplace cannot be empty",
+        //   },
+        //   notNull: {
+        //     args: true,
+        //     msg: "Workplace cannot be empty",
+        //   },
+        // },
         references: {
           model: "Workplaces",
           key: "id",
@@ -139,16 +141,17 @@ module.exports = (sequelize, DataTypes) => {
       },
       RoleId: {
         type: DataTypes.INTEGER,
-        validate: {
-          notEmpty: {
-            args: true,
-            msg: "Role cannot be empty",
-          },
-          notNull: {
-            args: true,
-            msg: "Role cannot be empty",
-          },
-        },
+        // allowNull: false,
+        // validate: {
+        //   notEmpty: {
+        //     args: true,
+        //     msg: "Role cannot be empty",
+        //   },
+        //   notNull: {
+        //     args: true,
+        //     msg: "Role cannot be empty",
+        //   },
+        // },
         references: {
           model: "Roles",
           key: "id",
@@ -160,8 +163,11 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "User",
       hooks: {
         beforeCreate: (user) => {
-          password = hashPassword(user.password);
-          user.imgUrl = user.imgUrl || "https://i.stack.imgur.com/l60Hf.png";
+          user.password = hashPassword(user.password);
+          user.imgUrl = "https://i.stack.imgur.com/l60Hf.png";
+          user.PositionId = 1;
+          user.RoleId = 3;
+          user.WorkplaceId = 3;
         },
       },
     }
