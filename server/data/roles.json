@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "super admin",
+    "description": "Has full access to all resources."
+  },
+  {
+    "id": 2,
+    "name": "admin",
+    "description": "Has access to administrative resources."
+  },
+  {
+    "id": 3,
+    "name": "user",
+    "description": "Has limited access to resources."
+  }
+]
